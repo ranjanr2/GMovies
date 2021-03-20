@@ -99,6 +99,9 @@ public class GMoviesIT {
                 .equals(jsonPath("[0].title").value("The Avengers"));
     }
 
+//    Given the GBDB has many movies
+//    When I visit GMDB movies with an existing title
+//    Then I should see that movie's details
     @Test
     @DirtiesContext
     public void getMovieByTitleTest() throws Exception {
@@ -109,6 +112,18 @@ public class GMoviesIT {
                 .equals(jsonPath("$.title").value("Unbreakable"));
     }
 
+//    Given the GBDB has many movies
+//    When I visit GMDB movies with a non-existing title
+//    Then I receive a friendly message that it doesn't exist
+    @Test
+    @DirtiesContext
+    public void getMovieByInvalidTitleTest() throws Exception {
+        postAllMoviesFromJson();
+
+        mockMvc.perform(get("/GMovies/Movies/XYZ")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Requested movie does not exist"));
+    }
 
     //Helper method
     private void postAllMoviesFromJson() throws Exception{

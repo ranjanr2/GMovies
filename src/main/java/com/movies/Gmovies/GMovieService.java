@@ -42,4 +42,19 @@ public class GMovieService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public GMovieDto getMovieByTitle(String title) {
+        return movieRepository.findAll()
+                .stream()
+                .filter(movieEntity -> movieEntity.getTitle().equals(title))
+                .map(movieEntity -> {
+                    return new GMovieDto(movieEntity.getTitle(),
+                            movieEntity.getDirector(),
+                            movieEntity.getActors(),
+                            movieEntity.getRelease(),
+                            movieEntity.getDescription(),
+                            null);
+                }).collect(Collectors.toList())
+                .stream().findFirst().orElse(null);
+    }
 }
