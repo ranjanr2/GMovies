@@ -4,8 +4,8 @@
 |-------------------|-------------|-------------|----------------------|----------------------|------------------------|
 | /GMovies/Movies   |       GET      |     OK     | Get All Movies |                        | `[{title:"",...},{title:"",...}]` |      
 | /GMovies/Movies/{Title} | GET      |     OK     | Get Single Movie |                   | `{title:"abc",...}` |
-| /GMovies/Movies   |       POST      |     OK   | Create a Movie       |  `{title:"abc",...}` |  |      
-| /GMovies/Movies/{Title} | PUT      |     OK     | Update a Movie |        |  |   
+| /GMovies/Movies   |       POST     |     OK   | Create a Movie       |  `{title:"abc",...}` |  |      
+| /GMovies/Movies    | PUT            |     OK     | Update a Movie |        |  |   
 
 
 # GStories and Acceptance Criteria
@@ -63,7 +63,7 @@ As a user, I can review a movie so that I can share my thoughts about it.
     Given an existing movie
     When I submit a text review without a star rating
     Then I receive a friendly message that a star rating is required.
-
+     [DONE]
 Here is sample json of movies, but keep in mind this is data to start with and may not represent the models your final solution has. It is NOT REQUIRED to use this data, but feel free to copy this into your project if it is useful to you.
 
     [

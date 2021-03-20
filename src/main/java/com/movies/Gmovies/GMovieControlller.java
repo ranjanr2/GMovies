@@ -42,8 +42,16 @@ public class GMovieControlller {
 
     @PutMapping("/Movies")
     @ResponseStatus(HttpStatus.OK)
-    public void updateMovie(@RequestBody MovieReviewDto movieReviewDto){
-        this.movieService.updateMovie(movieReviewDto);
+    public ResponseEntity<?> updateMovie(@RequestBody MovieReviewDto movieReviewDto){
+        if ((movieReviewDto.getRating() ==null) && (movieReviewDto.getReview() != null))
+        {
+            return new ResponseEntity<>(new Exception("Review requires a Rating"), HttpStatus.OK);
+        }
+        else
+        {
+            this.movieService.updateMovie(movieReviewDto);
+            return new ResponseEntity<String>(HttpStatus.OK);
+        }
     }
 
 }

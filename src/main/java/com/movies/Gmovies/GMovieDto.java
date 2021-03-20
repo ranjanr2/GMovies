@@ -26,5 +26,6 @@ public class GMovieDto {
         this.release = release;
         this.description = description;
         this.starRating = starRating;
+        this.reviews = new ArrayList<>();
     }
 }

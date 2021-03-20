@@ -8,7 +8,7 @@ import lombok.*;
 @Setter
 public class MovieReviewDto {
     String title;
-    int rating;
+    Integer rating;
     String review;
 
     public MovieReviewDto(String title, int rating) {
@@ -18,6 +18,10 @@ public class MovieReviewDto {
     public MovieReviewDto(String title, int rating,String review) {
         this.title = title;
         this.rating = rating;
+        this.review = review;
+    }
+    public MovieReviewDto(String title, String review) {
+        this.title = title;
         this.review = review;
     }
 }
