@@ -1,11 +1,13 @@
 package com.movies.Gmovies;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
+@NoArgsConstructor
+@RequestMapping("/GMovies")
 public class GMovieControlller {
 
     @Autowired
@@ -14,7 +16,7 @@ public class GMovieControlller {
         this.movieService = movieService;
     }
 
-    @PostMapping("GMovies/Movies")
+    @PostMapping("/Movies")
     @ResponseStatus(HttpStatus.CREATED)
     public void createAMovie(@RequestBody GMovieDto movieDto){
         this.movieService.create(movieDto);
