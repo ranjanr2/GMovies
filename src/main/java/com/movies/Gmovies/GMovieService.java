@@ -58,15 +58,15 @@ public class GMovieService {
                 .stream().findFirst().orElse(null);
     }
 
-    public void updateMovie(RatingDto ratingDto) {
+    public void updateMovie(MovieReviewDto movieReviewDto) {
         GMovieEntity movieEntity = movieRepository.findAll()
                 .stream()
                 .filter(en ->
-                        en.getTitle().equals(ratingDto.getTitle()))
+                        en.getTitle().equals(movieReviewDto.getTitle()))
                 .collect(Collectors.toList()).stream().findFirst().orElse(null);
 
         if (movieEntity != null){
-            movieEntity.addRating(ratingDto.rating);
+            movieEntity.addRating(movieReviewDto.rating);
         }
 
         movieRepository.save(movieEntity);

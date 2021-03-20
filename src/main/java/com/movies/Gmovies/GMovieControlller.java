@@ -42,8 +42,8 @@ public class GMovieControlller {
 
     @PutMapping("/Movies")
     @ResponseStatus(HttpStatus.OK)
-    public void updateMovie(@RequestBody RatingDto ratingDto){
-        this.movieService.updateMovie(ratingDto);
+    public void updateMovie(@RequestBody MovieReviewDto movieReviewDto){
+        this.movieService.updateMovie(movieReviewDto);
     }
 
 }

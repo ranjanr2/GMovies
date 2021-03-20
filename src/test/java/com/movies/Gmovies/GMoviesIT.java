@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,10 +132,10 @@ public class GMoviesIT {
     public void submitRatingTest() throws Exception {
         postAllMoviesFromJson();
 
-        RatingDto ratingDto = new RatingDto("Unbreakable", 5);
+        MovieReviewDto movieReviewDto = new MovieReviewDto("Unbreakable", 5);
 
         mockMvc.perform(put("/GMovies/Movies")
-                .content(objectMapper.writeValueAsString(ratingDto))
+                .content(objectMapper.writeValueAsString(movieReviewDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -154,16 +153,16 @@ public class GMoviesIT {
     public void getAverageRatingTest() throws Exception {
         postAllMoviesFromJson();
 
-        RatingDto ratingDto1 = new RatingDto("Unbreakable", 3);
-        RatingDto ratingDto2 = new RatingDto("Unbreakable", 5);
+        MovieReviewDto movieReviewDto1 = new MovieReviewDto("Unbreakable", 3);
+        MovieReviewDto movieReviewDto2 = new MovieReviewDto("Unbreakable", 5);
 
         mockMvc.perform(put("/GMovies/Movies")
-                .content(objectMapper.writeValueAsString(ratingDto1))
+                .content(objectMapper.writeValueAsString(movieReviewDto1))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         mockMvc.perform(put("/GMovies/Movies")
-                .content(objectMapper.writeValueAsString(ratingDto2))
+                .content(objectMapper.writeValueAsString(movieReviewDto2))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
@@ -172,6 +171,30 @@ public class GMoviesIT {
                 .andExpect(jsonPath("$.starRating")
                         .value(4));
     }
+
+//Given an existing movie
+//When I submit a star rating and text review
+//Then I can see my contribution on the movie details.
+@Test
+@DirtiesContext
+public void submitReviewsTest() throws Exception {
+    postAllMoviesFromJson();
+
+    MovieReviewDto movieReviewDto = new MovieReviewDto("Unbreakable", 5,"Very Bad Movie");
+
+    mockMvc.perform(put("/GMovies/Movies")
+            .content(objectMapper.writeValueAsString(movieReviewDto))
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+
+    mockMvc.perform(get("/GMovies/Movies/Unbreakable")
+    ).andExpect(status().isOk())
+            .andExpect(jsonPath("$.reviews[0]")
+                    .value("Very Bad Movie"));
+}
+
+
+
 
     //Helper method
     private void postAllMoviesFromJson() throws Exception{
