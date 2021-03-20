@@ -27,6 +27,7 @@ public class GMovieEntity {
     private String release;
     private String description;
     private ArrayList<Integer> starRating;
+
     public GMovieEntity(String title, String director, String actors, String release, String description, ArrayList<Integer> starRating) {
         this.title = title;
         this.director = director;
@@ -34,5 +35,17 @@ public class GMovieEntity {
         this.release = release;
         this.description = description;
         this.starRating = starRating;
+    }
+
+    void addRating(int r){
+        starRating.add(r);
+    }
+
+    int getRating(){
+        int total=0;
+        for (Integer integer : starRating) {
+            total = total + integer;
+        }
+        return total/starRating.size();
     }
 }

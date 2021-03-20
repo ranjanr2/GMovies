@@ -10,13 +10,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -132,7 +132,7 @@ public class GMoviesIT {
 
         RatingDto ratingDto = new RatingDto("Unbreakable", 5);
 
-        mockMvc.perform(post("/GMovies/Movies/Unbreakable")
+        mockMvc.perform(put("/GMovies/Movies")
                 .content(objectMapper.writeValueAsString(ratingDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());

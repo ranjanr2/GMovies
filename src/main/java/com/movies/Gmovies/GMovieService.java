@@ -53,8 +53,22 @@ public class GMovieService {
                             movieEntity.getActors(),
                             movieEntity.getRelease(),
                             movieEntity.getDescription(),
-                            null);
+                            movieEntity.getRating());
                 }).collect(Collectors.toList())
                 .stream().findFirst().orElse(null);
+    }
+
+    public void updateMovie(RatingDto ratingDto) {
+        GMovieEntity movieEntity = movieRepository.findAll()
+                .stream()
+                .filter(en ->
+                        en.getTitle().equals(ratingDto.getTitle()))
+                .collect(Collectors.toList()).stream().findFirst().orElse(null);
+
+        if (movieEntity != null){
+            movieEntity.addRating(ratingDto.rating);
+        }
+
+        movieRepository.save(movieEntity);
     }
 }

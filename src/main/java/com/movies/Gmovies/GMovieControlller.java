@@ -39,4 +39,11 @@ public class GMovieControlller {
             return new ResponseEntity<>(new Exception("Requested movie does not exist"), HttpStatus.OK);
         }
     }
+
+    @PutMapping("/Movies")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateMovie(@RequestBody RatingDto ratingDto){
+        this.movieService.updateMovie(ratingDto);
+    }
+
 }
