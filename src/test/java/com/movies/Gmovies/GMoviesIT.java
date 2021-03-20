@@ -125,6 +125,9 @@ public class GMoviesIT {
                 .andExpect(jsonPath("$.message").value("Requested movie does not exist"));
     }
 
+//    Given an existing movie
+//    When I submit a 5 star rating
+//    Then I can see it in the movie details.
     @Test
     @DirtiesContext
     public void submitRatingTest() throws Exception {
@@ -143,7 +146,32 @@ public class GMoviesIT {
                         .value(5));
     }
 
+//    Given a movie with one 5 star rating and one 3 star rating
+//    When I view the movie details
+//    Then I expect the star rating to be 4.
+    @Test
+    @DirtiesContext
+    public void getAverageRatingTest() throws Exception {
+        postAllMoviesFromJson();
 
+        RatingDto ratingDto1 = new RatingDto("Unbreakable", 3);
+        RatingDto ratingDto2 = new RatingDto("Unbreakable", 5);
+
+        mockMvc.perform(put("/GMovies/Movies")
+                .content(objectMapper.writeValueAsString(ratingDto1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(put("/GMovies/Movies")
+                .content(objectMapper.writeValueAsString(ratingDto2))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/GMovies/Movies/Unbreakable")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.starRating")
+                        .value(4));
+    }
 
     //Helper method
     private void postAllMoviesFromJson() throws Exception{

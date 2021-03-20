@@ -41,11 +41,15 @@ public class GMovieEntity {
         starRating.add(r);
     }
 
-    int getRating(){
+    Integer getRating(){
         int total=0;
         for (Integer integer : starRating) {
             total = total + integer;
         }
-        return total/starRating.size();
+
+        if (starRating.size()>0)
+            return total/starRating.size();
+        else
+            return null;
     }
 }

@@ -48,10 +48,12 @@ As a user, I can give a star rating to a movie so that I can share my experience
     Given an existing movie
     When I submit a 5 star rating
     Then I can see it in the movie details.
+    [DONE]
 
     Given a movie with one 5 star rating and one 3 star rating
     When I view the movie details
     Then I expect the star rating to be 4.
+    [DONE]
 As a user, I can review a movie so that I can share my thoughts about it.
 
     Given an existing movie
