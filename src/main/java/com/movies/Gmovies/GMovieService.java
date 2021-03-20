@@ -38,7 +38,8 @@ public class GMovieService {
                             movieEntity.getActors(),
                             movieEntity.getRelease(),
                             movieEntity.getDescription(),
-                            null);
+                            movieEntity.getRating(),
+                            movieEntity.getReviews() );
                 })
                 .collect(Collectors.toList());
     }

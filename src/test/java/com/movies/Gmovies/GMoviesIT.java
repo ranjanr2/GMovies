@@ -194,7 +194,22 @@ public void submitReviewsTest() throws Exception {
 }
 
 
+//    Given an existing movie
+//    When I submit a text review without a star rating
+//    Then I receive a friendly message that a star rating is required.
+    @Test
+    @DirtiesContext
+    public void SubmitReviewswithoutRatingTest() throws Exception {
+        postAllMoviesFromJson();
 
+        MovieReviewDto movieReviewDto = new MovieReviewDto("Unbreakable","Very Bad Movie");
+
+        mockMvc.perform(put("/GMovies/Movies")
+                .content(objectMapper.writeValueAsString(movieReviewDto))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Review requires a Rating"));
+    }
 
     //Helper method
     private void postAllMoviesFromJson() throws Exception{

@@ -59,7 +59,7 @@ As a user, I can review a movie so that I can share my thoughts about it.
     Given an existing movie
     When I submit a star rating and text review
     Then I can see my contribution on the movie details.
-    
+    [DONE]
     Given an existing movie
     When I submit a text review without a star rating
     Then I receive a friendly message that a star rating is required.
