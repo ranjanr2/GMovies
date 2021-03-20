@@ -15,5 +15,5 @@ public class GMovieDto {
     private String actors;
     private String release;
     private String description;
-    private Integer StarRating;
+    private Integer starRating;
 }
