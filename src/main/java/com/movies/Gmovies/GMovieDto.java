@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class GMovieDto {
     private String title;
     private String director;
