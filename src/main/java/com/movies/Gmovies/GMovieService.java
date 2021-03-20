@@ -3,6 +3,8 @@ package com.movies.Gmovies;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 //title, director, actors, release year, description and star rating.
@@ -25,5 +27,19 @@ public class GMovieService {
                         movieDto.getDescription(),
                         new ArrayList<>()
                 ));
+    }
+
+    public List<GMovieDto> getAllMovies() {
+        return movieRepository.findAll()
+                .stream()
+                .map(movieEntity -> {
+                    return new GMovieDto(movieEntity.getTitle(),
+                            movieEntity.getDirector(),
+                            movieEntity.getActors(),
+                            movieEntity.getRelease(),
+                            movieEntity.getDescription(),
+                            null);
+                })
+                .collect(Collectors.toList());
     }
 }

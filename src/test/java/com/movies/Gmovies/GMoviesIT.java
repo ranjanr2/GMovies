@@ -40,7 +40,7 @@ public class GMoviesIT {
 
     //GET Tests
     @Test
-    public void GetAllMovies() throws Exception {
+    public void getAllMovies() throws Exception {
 
         mockMvc.perform(get("/GMovies/Movies")
         ).andExpect(status().isOk())
