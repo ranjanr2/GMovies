@@ -22,6 +22,8 @@ public class GMoviesIT {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    //POST Test
     @Test
     public void createAMovie() throws Exception {
         GMovieDto movieDto = new GMovieDto("The Avengers","Joss Whedon","Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
@@ -36,7 +38,14 @@ public class GMoviesIT {
 //                .andExpect(jsonPath("length()").value(1));
     }
 
+    //GET Tests
+    @Test
+    public void GetAllMovies() throws Exception {
 
+        mockMvc.perform(get("/GMovies/Movies")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("length()").value(0));
+    }
 
 
 }
