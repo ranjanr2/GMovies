@@ -125,6 +125,26 @@ public class GMoviesIT {
                 .andExpect(jsonPath("$.message").value("Requested movie does not exist"));
     }
 
+    @Test
+    @DirtiesContext
+    public void submitRatingTest() throws Exception {
+        postAllMoviesFromJson();
+
+        RatingDto ratingDto = new RatingDto("Unbreakable", 5);
+
+        mockMvc.perform(post("/GMovies/Movies/Unbreakable")
+                .content(objectMapper.writeValueAsString(ratingDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/GMovies/Movies/Unbreakable")
+        ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.starRating")
+                        .value(5));
+    }
+
+
+
     //Helper method
     private void postAllMoviesFromJson() throws Exception{
         for (int i = 0; i < movies.size(); i++) {

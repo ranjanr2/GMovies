@@ -41,6 +41,7 @@ As a user, I can browse each movie so I can learn all the details.
     Given the GBDB has many movies
     When I visit GMDB movies with a non-existing title
     Then I receive a friendly message that it doesn't exist
+    [DONE]
 
 As a user, I can give a star rating to a movie so that I can share my experiences with others.
     
