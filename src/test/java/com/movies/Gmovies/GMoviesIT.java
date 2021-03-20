@@ -31,11 +31,14 @@ public class GMoviesIT {
     ObjectMapper objectMapper;
 
     //POST Test
+//    Given a new movie has released
+//    When I submit this new movie to GMDB movies
+//    Then I should see that movie in GMDB movies
     @Test
     @DirtiesContext
     public void createAMovieTest() throws Exception {
-        GMovieDto movieDto = new GMovieDto("The Avengers","Joss Whedon","Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
-                "2012","Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+        GMovieDto movieDto = new GMovieDto("The Avengers", "Joss Whedon", "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
+                "2012", "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
                 null);
         mockMvc.perform(post("/GMovies/Movies")
                 .content(objectMapper.writeValueAsString(movieDto))
@@ -44,6 +47,9 @@ public class GMoviesIT {
     }
 
     //GET Tests
+//    Given the GBDB is empty
+//    When I visit GMDB movies
+//    Then I should see no movies
     @Test
     @DirtiesContext
     public void getAllMoviesNullTest() throws Exception {
@@ -52,13 +58,14 @@ public class GMoviesIT {
                 .andExpect(jsonPath("length()").value(0));
     }
 
-
+    //    Given the GBDB has many movies
+//    When I visit GMDB movies
+//    Then I should see a list with that movie
     @Test
     @DirtiesContext
     public void getAllMovies() throws Exception {
         //Post the get data - Set Up
-        for(int i =0 ; i< movies.size();i++)
-        {
+        for (int i = 0; i < movies.size(); i++) {
             mockMvc.perform(post("/GMovies/Movies")
                     .content(objectMapper.writeValueAsString(movies.get(i)))
                     .contentType(MediaType.APPLICATION_JSON));
@@ -71,14 +78,14 @@ public class GMoviesIT {
     }
 
 
-//    Given the GBDB has a movie
+    //    Given the GBDB has a movie
 //    When I visit GMDB movies
 //    Then I should see that movie in GMDB movies
     @Test
     @DirtiesContext
-    public void getOneMovie() throws Exception{
-        GMovieDto movieDto = new GMovieDto("The Avengers","Joss Whedon","Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
-                "2012","Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+    public void getOneMovie() throws Exception {
+        GMovieDto movieDto = new GMovieDto("The Avengers", "Joss Whedon", "Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth",
+                "2012", "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
                 null);
 
         mockMvc.perform(post("/GMovies/Movies")
@@ -90,6 +97,27 @@ public class GMoviesIT {
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("length()").value(1))
                 .equals(jsonPath("[0].title").value("The Avengers"));
+    }
+
+    @Test
+    @DirtiesContext
+    public void getMovieByTitleTest() throws Exception {
+        postAllMoviesFromJson();
+
+        mockMvc.perform(get("/GMovies/Movies/Unbreakable")
+        ).andExpect(status().isOk())
+                .equals(jsonPath("$.title").value("Unbreakable"));
+    }
+
+
+    //Helper method
+    private void postAllMoviesFromJson() throws Exception{
+        for (int i = 0; i < movies.size(); i++) {
+            mockMvc.perform(post("/GMovies/Movies")
+                    .content(objectMapper.writeValueAsString(movies.get(i)))
+                    .contentType(MediaType.APPLICATION_JSON));
+
+        }
     }
 
     //Data Set up
@@ -108,6 +136,7 @@ public class GMoviesIT {
     private void initializeMoviesData() throws IOException {
         mapper = new ObjectMapper();
         File moviesFile = new File(moviesJsonPath);
-        movies = mapper.readValue(moviesFile, new TypeReference<ArrayList<GMovieDto>>() {});
+        movies = mapper.readValue(moviesFile, new TypeReference<ArrayList<GMovieDto>>() {
+        });
     }
 }

@@ -27,11 +27,8 @@
 
     Given the GBDB has many movies
     When I visit GMDB movies
-    Then I should see that movie in GMDB movies
-
-    Given the GBDB has many movies
-    When I visit GMDB movies
     Then I should see a list with that movie
+    [DONE]
 As a user, I can browse each movie so I can learn all the details.
 
     Rule: Movie details include title, director, actors, release year, description and star rating.
